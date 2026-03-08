@@ -1,3 +1,30 @@
+<script setup>
+
+import { ref, onMounted } from "vue"
+
+const { $api } = useNuxtApp()
+
+const user = ref(null)
+
+onMounted(async () => {
+
+  try {
+
+    const res = await $api.get("/me")
+
+    user.value = res.data
+
+  } catch (err) {
+
+    console.log(err)
+
+  }
+
+})
+
+</script>
+
+
 <template>
 
 <div class="dashboard">
@@ -8,7 +35,10 @@
     <div class="sidebar-top">
 
       <div class="avatar"></div>
-      <span class="username">Inventory</span>
+
+      <span class="username">
+        {{ user?.name || 'Inventory' }}
+      </span>
 
     </div>
 
@@ -16,34 +46,34 @@
 
       <p class="menu-title">DASHBOARDS</p>
 
-      <NuxtLink to="/dashboard" class="menu-item active">
+      <NuxtLink to="/dashboard" class="menu-item" active-class="active">
         Overview
       </NuxtLink>
 
-      <NuxtLink to="/issues" class="menu-item">
+      <NuxtLink to="/issues" class="menu-item" active-class="active">
         Issues
       </NuxtLink>
 
-      <NuxtLink to="/sales" class="menu-item">
+      <NuxtLink to="/sales" class="menu-item" active-class="active">
         Sales
       </NuxtLink>
 
-      <NuxtLink to="/traffic" class="menu-item">
+      <NuxtLink to="/traffic" class="menu-item" active-class="active">
         Traffic
       </NuxtLink>
 
-      <NuxtLink to="/data" class="menu-item">
+      <NuxtLink to="/data" class="menu-item" active-class="active">
         Data
       </NuxtLink>
 
 
       <p class="menu-title">USERS</p>
 
-      <NuxtLink to="/users" class="menu-item">
+      <NuxtLink to="/users" class="menu-item" active-class="active">
         Users
       </NuxtLink>
 
-      <NuxtLink to="/settings" class="menu-item">
+      <NuxtLink to="/settings" class="menu-item" active-class="active">
         Settings
       </NuxtLink>
 
@@ -54,7 +84,6 @@
     </div>
 
   </aside>
-
 
 
   <!-- MAIN CONTENT -->
