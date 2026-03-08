@@ -5,6 +5,10 @@ definePageMeta({
   middleware: "auth"
 })
 
+useHead({
+  title: "Dashboard"
+})
+
 const series = [
   {
     name: "Open",

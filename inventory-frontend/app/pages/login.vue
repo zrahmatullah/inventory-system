@@ -1,4 +1,9 @@
 <script setup>
+
+useHead({
+  title: "Login"
+})
+
 import { ref, onMounted } from "vue"
 import { useToast } from "vue-toastification"
 
@@ -32,31 +37,36 @@ onMounted(()=>{
   setInterval(updateClock,1000)
 })
 
-const login = async ()=>{
+const login = async () => {
 
- loading.value=true
+  loading.value = true
 
- try{
+  try {
 
-  const res = await $api.post("/login",{
-    email: username.value,
-    password: password.value
-  })
+    const res = await $api.post("/login", {
+      email: username.value,
+      password: password.value
+    })
 
-  localStorage.setItem("token",res.data.token)
+    const token = useCookie("token", {
+      path: "/",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 24
+    })
 
-  toast.success("Login berhasil")
+    token.value = res.data.token
 
-  navigateTo("/dashboard")
+    toast.success("Login berhasil")
 
- }catch(e){
+    await navigateTo("/dashboard")
 
-  toast.error("Login gagal")
+  } catch (e) {
 
- }
+    toast.error("Login gagal")
 
- loading.value=false
+  }
 
+  loading.value = false
 }
 </script>
 

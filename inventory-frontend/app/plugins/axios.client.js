@@ -11,14 +11,31 @@ export default defineNuxtPlugin(() => {
 
   api.interceptors.request.use((config) => {
 
-    const token = localStorage.getItem("token")
+    const token = useCookie("token")
 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+    if (token.value) {
+      config.headers.Authorization = `Bearer ${token.value}`
     }
 
     return config
   })
+
+  api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+
+      if (error.response?.status === 401) {
+
+        const token = useCookie("token")
+        token.value = null
+
+        navigateTo("/login")
+
+      }
+
+      return Promise.reject(error)
+    }
+  )
 
   return {
     provide: {
