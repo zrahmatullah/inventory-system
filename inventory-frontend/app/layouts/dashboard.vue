@@ -1,28 +1,54 @@
 <script setup>
-
 import { ref, onMounted } from "vue"
+import { useToast } from "vue-toastification"
 
 const { $api } = useNuxtApp()
+const router = useRouter()
 
 const user = ref(null)
+const showLogoutModal = ref(false)
+const loadingLogout = ref(false)
 
 onMounted(async () => {
-
   try {
-
     const res = await $api.get("/me")
-
     user.value = res.data
-
   } catch (err) {
-
     console.log(err)
-
   }
-
 })
 
+const confirmLogout = () => {
+  showLogoutModal.value = true
+}
+
+const cancelLogout = () => {
+  showLogoutModal.value = false
+}
+
+const logout = async () => {
+  loadingLogout.value = true
+
+  try {
+    const res = await $api.post("/logout")
+
+    if (res.data.success) {
+      toast.success("Berhasil logout")
+    }
+
+    localStorage.removeItem("token")
+
+    setTimeout(() => {
+      router.push("/login")
+    }, 800)
+
+  } catch (error) {
+    toast.error("Logout gagal")
+    router.push("/login")
+  }
+}
 </script>
+
 
 
 <template>
@@ -80,9 +106,10 @@ onMounted(async () => {
     </nav>
 
     <div class="sidebar-bottom">
-      <NuxtLink to="/logout">Logout</NuxtLink>
+      <button class="logout-btn" @click="confirmLogout">
+        Logout
+      </button>
     </div>
-
   </aside>
 
 
@@ -113,6 +140,31 @@ onMounted(async () => {
     <div class="page">
 
       <slot />
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- LOGOUT MODAL -->
+<div v-if="showLogoutModal" class="modal-overlay">
+
+  <div class="modal">
+
+    <h3>Logout</h3>
+
+    <p>Apakah Anda yakin ingin keluar dari sistem?</p>
+
+    <div class="modal-actions">
+
+      <button class="cancel-btn" @click="cancelLogout">
+        Batal
+      </button>
+
+      <button class="confirm-btn" @click="logout" :disabled="loadingLogout">
+        {{ loadingLogout ? "Processing..." : "Logout" }}
+      </button>
 
     </div>
 
@@ -259,6 +311,115 @@ border-radius:50%;
 .page{
 padding:25px;
 overflow:auto;
+}
+
+/* OVERLAY */
+
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.65);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+  backdrop-filter:blur(6px);
+}
+
+
+/* MODAL BOX */
+
+.modal{
+  width:340px;
+  background:#11141c;
+  border-radius:14px;
+  padding:26px;
+  text-align:center;
+  box-shadow:0 15px 40px rgba(0,0,0,0.6);
+  border:1px solid #1f2430;
+  color:#e5e7eb;
+}
+
+
+/* TITLE */
+
+.modal h3{
+  margin:0 0 10px;
+  font-size:18px;
+  font-weight:600;
+  color:#ffffff;
+}
+
+
+/* TEXT */
+
+.modal p{
+  margin:0 0 22px;
+  font-size:14px;
+  line-height:1.5;
+  color:#cbd5e1;
+}
+
+
+/* BUTTON AREA */
+
+.modal-actions{
+  display:flex;
+  gap:10px;
+}
+
+
+/* CANCEL BUTTON */
+
+.cancel-btn{
+  flex:1;
+  background:#1f2430;
+  border:none;
+  padding:10px;
+  border-radius:8px;
+  color:#e5e7eb;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.cancel-btn:hover{
+  background:#2b3140;
+}
+
+
+/* CONFIRM LOGOUT BUTTON */
+
+.confirm-btn{
+  flex:1;
+  background:#ef4444;
+  border:none;
+  padding:10px;
+  border-radius:8px;
+  color:white;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.confirm-btn:hover{
+  background:#dc2626;
+}
+
+
+/* SIDEBAR LOGOUT BUTTON */
+
+.logout-btn{
+  width:100%;
+  background:#1f2430;
+  border:none;
+  padding:10px;
+  border-radius:8px;
+  color:#e5e7eb;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.logout-btn:hover{
+  background:#2b3140;
 }
 
 </style>
