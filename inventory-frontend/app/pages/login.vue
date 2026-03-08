@@ -53,7 +53,7 @@ const login = async () => {
       sameSite: "lax",
       maxAge: 60 * 60 * 24
     })
-
+    
     token.value = res.data.token
 
     toast.success("Login berhasil")
