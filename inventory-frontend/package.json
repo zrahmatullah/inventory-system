@@ -1,0 +1,21 @@
+{
+  "name": "inventory-frontend",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "apexcharts": "^5.10.3",
+    "axios": "^1.13.6",
+    "nuxt": "^4.3.1",
+    "vue": "^3.5.29",
+    "vue-router": "^4.6.4",
+    "vue-toastification": "^2.0.0-rc.5",
+    "vue3-apexcharts": "^1.11.1"
+  }
+}

@@ -1,0 +1,36 @@
+.Vue-Toastification__toast {
+
+  border-radius:10px;
+  font-weight:500;
+  padding:14px 18px;
+
+  backdrop-filter: blur(6px);
+
+  box-shadow:
+  0 10px 25px rgba(0,0,0,0.15);
+
+}
+
+/* SUCCESS */
+
+.Vue-Toastification__toast--success{
+
+background:linear-gradient(135deg,#2ecc71,#27ae60);
+
+}
+
+/* ERROR */
+
+.Vue-Toastification__toast--error{
+
+background:linear-gradient(135deg,#ff6b6b,#e74c3c);
+
+}
+
+/* PROGRESS BAR */
+
+.Vue-Toastification__progress-bar{
+
+height:3px;
+
+}
