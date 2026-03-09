@@ -2,8 +2,8 @@
 
 namespace App\Implement;
 
-use App\Core\Repositories\UserMenuRepository;
-use App\Core\Models\UserMenu;
+use App\Repositories\UserMenuRepository;
+use App\Models\UserMenu;
 
 class UserMenuRepositoryImplement implements UserMenuRepository
 {
