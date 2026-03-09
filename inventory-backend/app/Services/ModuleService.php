@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core\Services;
+namespace App\Services;
 
-use App\Core\Repositories\ModuleRepository;
+use App\Repositories\ModuleRepository;
 
 class ModuleService
 {

@@ -2,26 +2,21 @@
 
 namespace App\Services;
 
-use App\Repositories\UserMenuRepository;
+use App\Repositories\KelompokUserRepository;
 
-class UserMenuService
+class KelompokUserService
 {
 
     protected $repository;
 
-    public function __construct(UserMenuRepository $repository)
+    public function __construct(KelompokUserRepository $repository)
     {
         $this->repository = $repository;
     }
 
     public function list()
     {
-        return $this->repository->getAll();
-    }
-
-    public function listByUser($userId)
-    {
-        return $this->repository->getByUser($userId);
+        return $this->repository->all();
     }
 
     public function detail($id)
@@ -31,10 +26,10 @@ class UserMenuService
 
     public function create(array $data)
     {
-        return $this->repository->store($data);
+        return $this->repository->create($data);
     }
 
-    public function update($id, array $data)
+    public function update($id,array $data)
     {
         return $this->repository->update($id,$data);
     }
@@ -43,4 +38,5 @@ class UserMenuService
     {
         return $this->repository->delete($id);
     }
+
 }

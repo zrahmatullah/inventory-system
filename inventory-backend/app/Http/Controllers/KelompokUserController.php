@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Core\Services\UserMenuService;
+use App\Services\KelompokUserService;
 
-class UserMenuController extends Controller
+class KelompokUserController extends Controller
 {
 
     protected $service;
 
-    public function __construct(UserMenuService $service)
+    public function __construct(KelompokUserService $service)
     {
         $this->service = $service;
     }
@@ -30,36 +29,31 @@ class UserMenuController extends Controller
         );
     }
 
-    public function userMenus($userId)
-    {
-        return response()->json(
-            $this->service->listByUser($userId)
-        );
-    }
-
     public function store(Request $request)
     {
+
         $data = $request->validate([
-            'user_id' => 'required|integer',
-            'menu_id' => 'required|integer'
+            'nama_kelompok'=>'required|string|max:100'
         ]);
 
         return response()->json(
             $this->service->create($data)
         );
+
     }
 
     public function update(Request $request,$id)
     {
+
         $data = $request->validate([
-            'user_id' => 'required|integer',
-            'menu_id' => 'required|integer',
-            'is_active' => 'boolean'
+            'nama_kelompok'=>'required|string|max:100',
+            'is_active'=>'boolean'
         ]);
 
         return response()->json(
             $this->service->update($id,$data)
         );
+
     }
 
     public function destroy($id)
@@ -68,4 +62,5 @@ class UserMenuController extends Controller
             $this->service->delete($id)
         );
     }
+
 }
