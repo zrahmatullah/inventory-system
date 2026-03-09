@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core\Services;
+namespace App\Services;
 
-use App\Core\Repositories\MenuRepository;
+use App\Repositories\MenuRepository;
 
 class MenuService
 {

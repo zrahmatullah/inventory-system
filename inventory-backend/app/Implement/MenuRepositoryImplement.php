@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Core\Implement;
+namespace App\Implement;
 
-use App\Core\Repositories\MenuRepository;
-use App\Core\Models\Menu;
+use App\Repositories\MenuRepository;
+use App\Models\Menu;
 
 class MenuRepositoryImplement implements MenuRepository
 {

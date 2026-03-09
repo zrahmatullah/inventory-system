@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Core\Services\UserMenuService;
+use App\Services\UserService;
 
-class UserMenuController extends Controller
+class UserController extends Controller
 {
 
     protected $service;
 
-    public function __construct(UserMenuService $service)
+    public function __construct(UserService $service)
     {
         $this->service = $service;
     }
@@ -30,18 +29,14 @@ class UserMenuController extends Controller
         );
     }
 
-    public function userMenus($userId)
-    {
-        return response()->json(
-            $this->service->listByUser($userId)
-        );
-    }
-
     public function store(Request $request)
     {
+
         $data = $request->validate([
-            'user_id' => 'required|integer',
-            'menu_id' => 'required|integer'
+            'name'=>'required',
+            'email'=>'required|email',
+            'password'=>'required',
+            'kelompok_user_id'=>'nullable|integer'
         ]);
 
         return response()->json(
@@ -51,10 +46,12 @@ class UserMenuController extends Controller
 
     public function update(Request $request,$id)
     {
+
         $data = $request->validate([
-            'user_id' => 'required|integer',
-            'menu_id' => 'required|integer',
-            'is_active' => 'boolean'
+            'name'=>'required',
+            'email'=>'required|email',
+            'kelompok_user_id'=>'nullable|integer',
+            'is_active'=>'boolean'
         ]);
 
         return response()->json(
@@ -68,4 +65,5 @@ class UserMenuController extends Controller
             $this->service->delete($id)
         );
     }
+
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Core\Implement;
+namespace App\Implement;
 
-use App\Core\Repositories\ModuleRepository;
-use App\Core\Models\Module;
+use App\Repositories\ModuleRepository;
+use App\Models\Module;
 
 class ModuleRepositoryImplement implements ModuleRepository
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Implement;
+namespace App\Implement;
 
 use App\Core\Repositories\UserMenuRepository;
 use App\Core\Models\UserMenu;

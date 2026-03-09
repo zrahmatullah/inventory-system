@@ -3,6 +3,10 @@
 const { $api } = useNuxtApp()
 const result = ref(null)
 
+definePageMeta({
+  layout: "dashboard"
+})
+
 const getApi = async () => {
 
   try {

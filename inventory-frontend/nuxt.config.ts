@@ -4,6 +4,10 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
 
+  modules: [
+    '@nuxt/ui'
+  ],
+
   css: [
     "~/assets/toast.css",
     "~/assets/global.css"
